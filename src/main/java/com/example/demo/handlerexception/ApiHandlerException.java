@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,20 +21,22 @@ import com.example.demo.handlerexception.Problema.Campo;
 
 @ControllerAdvice
 public class ApiHandlerException extends ResponseEntityExceptionHandler{
-	
 	//instanciando o messages.properties do src/main/resources
 	@Autowired
-	private MessageSource messageSource;
+	public MessageSource messageSource;
 	
-//	var campos = new ArrayList<Problema.Campo>();
-//	
-//	//Iterando pelos erros existentes no MethodArgumentNotValidException
-//	for(ObjectError erro : ex.getBindingResult().getAllErrors()) {
-//		String nome =((FieldError) erro).getField();
-//		String mensagem = erro.messageSource.getMessage(error, LocaleContextHolder.getLocale()); //ou é error ou erro
-//		
-//		campos.add(new Problema.Campo(nome, mensagem));
-//	}
+	/*
+	 * var campos = new ArrayList<Campo>();
+	 * 
+	 * //Iterando pelos erros existentes no MethodArgumentNotValidException
+	 * for(ObjectError erro : ex.getBindingResult().getAllErrors()) { String nome
+	 * =((FieldError) erro).getField(); String mensagem =
+	 * erro.messageSource.getMessage(erro, LocaleContextHolder.getLocale()); //ou é
+	 * error ou erro
+	 * 
+	 * campos.add(new Problema.Campo(nome, mensagem)); }
+	 * 
+	 */
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
