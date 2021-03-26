@@ -27,4 +27,5 @@ import com.example.demo.models.Clients;
 public interface ClientsInterface extends JpaRepository<Clients, Long>{
 	
 	List<Clients> findAllByNome(String nome);
+	Clients findByEmail(String email);
 }
