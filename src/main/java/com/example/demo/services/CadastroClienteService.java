@@ -3,6 +3,7 @@ package com.example.demo.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.handlerexception.NegocioException;
 import com.example.demo.interfaces.ClientsInterface;
 import com.example.demo.models.Clients;
 
@@ -21,6 +22,12 @@ public class CadastroClienteService {
 	ClientsInterface interf;
 	
 	public Clients salvar(Clients client) {
+		
+		Clients cli = interf.findByEmail(client.getEmail());
+		if(cli != null && cli.equals(cli)) {
+			throw new NegocioException("O cliente com o email informado já foi criado!");
+		}
+		
 		 return interf.save(client);
 	}
 	

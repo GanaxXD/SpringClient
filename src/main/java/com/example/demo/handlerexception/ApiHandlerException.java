@@ -20,11 +20,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.example.demo.handlerexception.Problema.Campo;
 
 @ControllerAdvice
-public class ApiHandlerException extends ResponseEntityExceptionHandler{
-	//instanciando o messages.properties do src/main/resources
+public class ApiHandlerException extends ResponseEntityExceptionHandler {
+	// instanciando o messages.properties do src/main/resources
 	@Autowired
 	public MessageSource messageSource;
-	
+
 	/*
 	 * var campos = new ArrayList<Campo>();
 	 * 
@@ -37,13 +37,13 @@ public class ApiHandlerException extends ResponseEntityExceptionHandler{
 	 * campos.add(new Problema.Campo(nome, mensagem)); }
 	 * 
 	 */
-	
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		var problema = new Problema();
 		problema.setDataErro(LocalDateTime.now());
-		//problema.setCampos(campos);
+		// problema.setCampos(campos);
 		problema.setTitulo("Dados incorretos ou não preenchidos. Preencha todos os dados e tente novamente.");
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}

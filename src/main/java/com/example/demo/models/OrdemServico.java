@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 
@@ -10,6 +11,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+
+import org.springframework.data.annotation.ReadOnlyProperty;
+
+import com.example.demo.interfaces.ValidationGroups;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 @Entity
 public class OrdemServico {
@@ -18,16 +30,28 @@ public class OrdemServico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Valid //encadeando validação do cliente com os campos da classe
+	@ConvertGroup(from = Default.class,  to =  ValidationGroups.ClientId.class) //convertendo a validação do Clients para que ele valide apenas as propriedades da classe clients que possuam a anotação ValidationGroups.ClientId, deixando a Default de lado 
+	@NotNull
 	@ManyToOne
 	private Clients cliente;
 	
+	@NotBlank
 	private String descricao;
+	
+	@NotNull
+	private BigDecimal preco;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime dataAbertura;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime dataFinalizacao;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
 	private Estados status;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,6 +99,15 @@ public class OrdemServico {
 	public void setStatus(Estados status) {
 		this.status = status;
 	}
+	
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -100,5 +133,5 @@ public class OrdemServico {
 			return false;
 		return true;
 	}
-	
+
 }
