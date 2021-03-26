@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.interfaces.ClientsInterface;
 import com.example.demo.models.Clients;
-import com.example.demo.service.CadastroClienteService;
+import com.example.demo.services.CadastroClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -79,7 +79,7 @@ public class ClientController {
 			ResponseEntity.notFound().build();
 		}
 		//clientInterface.deletar(clientInterface.findById(clientId).get());
-		clienteService.excluir(clientId);
+		clienteService.deletar(clientId);
 		return ResponseEntity.noContent().build();
 	}
 	

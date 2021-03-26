@@ -14,7 +14,8 @@ O seguinte repositório visa demonstrar o funcionamento de uma API criada com Ja
   - Flyway;
   - Spring Data JPA;
   - Jakarta Persistence;
-  - Jakarta Bean Validation
+  - Jakarta Bean Validation;
+  - ModelMapper;
 ---
 
 ### Em desenvolvimento...

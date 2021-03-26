@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,28 +20,30 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.example.demo.handlerexception.Problema.Campo;
 
 @ControllerAdvice
-public class ApiHandlerException extends ResponseEntityExceptionHandler{
-	
-	//instanciando o messages.properties do src/main/resources
+public class ApiHandlerException extends ResponseEntityExceptionHandler {
+	// instanciando o messages.properties do src/main/resources
 	@Autowired
-	private MessageSource messageSource;
-	
-//	var campos = new ArrayList<Problema.Campo>();
-//	
-//	//Iterando pelos erros existentes no MethodArgumentNotValidException
-//	for(ObjectError erro : ex.getBindingResult().getAllErrors()) {
-//		String nome =((FieldError) erro).getField();
-//		String mensagem = erro.messageSource.getMessage(error, LocaleContextHolder.getLocale()); //ou é error ou erro
-//		
-//		campos.add(new Problema.Campo(nome, mensagem));
-//	}
-	
+	public MessageSource messageSource;
+
+	/*
+	 * var campos = new ArrayList<Campo>();
+	 * 
+	 * //Iterando pelos erros existentes no MethodArgumentNotValidException
+	 * for(ObjectError erro : ex.getBindingResult().getAllErrors()) { String nome
+	 * =((FieldError) erro).getField(); String mensagem =
+	 * erro.messageSource.getMessage(erro, LocaleContextHolder.getLocale()); //ou é
+	 * error ou erro
+	 * 
+	 * campos.add(new Problema.Campo(nome, mensagem)); }
+	 * 
+	 */
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		var problema = new Problema();
 		problema.setDataErro(LocalDateTime.now());
-		//problema.setCampos(campos);
+		// problema.setCampos(campos);
 		problema.setTitulo("Dados incorretos ou não preenchidos. Preencha todos os dados e tente novamente.");
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}
