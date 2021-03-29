@@ -1,9 +1,12 @@
 package com.example.demo.controllerCliente;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.interfaces.OrdemServiceInterface;
 import com.example.demo.models.OrdemServico;
+import com.example.demo.representationmodelclass.RepresentationModelOrdemServico;
 import com.example.demo.services.OrdemServiceService;
 
 @RestController
@@ -31,11 +35,24 @@ public class OrdemServicoController {
 	OrdemServiceInterface osInterface;
 	
 	@Autowired
-	OrdemServiceService osService; 
+	OrdemServiceService osService;
+	
+	@Autowired
+	ModelMapper ordemServicoMap;
 	
 	@GetMapping()
-	public List<OrdemServico> listarOrdensServico(){
-		return osInterface.findAll();
+	public List<RepresentationModelOrdemServico> listarOrdensServico(){
+		List<OrdemServico> listaDeOrdens =  osInterface.findAll();
+		return toModelList(listaDeOrdens);
+	}
+	
+	@GetMapping("/{ordemServicoId}")
+	public ResponseEntity<RepresentationModelOrdemServico> listarOrdensServicoPeoId(@PathVariable Long ordemServicoId){
+		if(!osInterface.findById(ordemServicoId).isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		RepresentationModelOrdemServico os = toModel(osInterface.findById(ordemServicoId).get());
+		return ResponseEntity.ok(os);
 	}
 	
 	@PostMapping()
@@ -62,4 +79,14 @@ public class OrdemServicoController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	//transforma uma ordem de serviço numa representation model
+	public RepresentationModelOrdemServico toModel(OrdemServico ordem) {
+		return ordemServicoMap.map(ordem, RepresentationModelOrdemServico.class);
+	}
+	//transforma uma lista de ordem de serviços em uma lista de representation model
+	public List<RepresentationModelOrdemServico> toModelList(List<OrdemServico> ordens){
+		return ordens.stream()
+				.map(ordemServico -> toModel(ordemServico))
+				.collect(Collectors.toList());
+	}
 }

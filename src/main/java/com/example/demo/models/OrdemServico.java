@@ -2,7 +2,9 @@ package com.example.demo.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -51,6 +54,9 @@ public class OrdemServico {
 	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
 	private Estados status;
+	
+	@OneToMany(mappedBy = "ordemServico")
+	private List<Comentarios> comentarios = new ArrayList();
 	
 	public Long getId() {
 		return id;
@@ -108,6 +114,13 @@ public class OrdemServico {
 		this.preco = preco;
 	}
 	
+	public List<Comentarios> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentarios> comentarios) {
+		this.comentarios = comentarios;
+	}
 
 	@Override
 	public int hashCode() {

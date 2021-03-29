@@ -1,15 +1,19 @@
 package com.example.demo.services;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.handlerexception.NegocioException;
 import com.example.demo.interfaces.ClientsInterface;
+import com.example.demo.interfaces.ComentariosInterface;
 import com.example.demo.interfaces.OrdemServiceInterface;
 import com.example.demo.models.Clients;
+import com.example.demo.models.Comentarios;
 import com.example.demo.models.Estados;
 import com.example.demo.models.OrdemServico;
 
@@ -21,6 +25,9 @@ public class OrdemServiceService {
 	
 	@Autowired
 	ClientsInterface cliente;
+	
+	@Autowired
+	ComentariosInterface comentarios;
 	
 	public OrdemServico criar(OrdemServico servico){
 		
@@ -53,4 +60,17 @@ public class OrdemServiceService {
 		ordem.setStatus(Estados.CANCELADO);
 		return ordem;
 	}
+	
+	public Comentarios adicionarcomentario(Long ordemServicoId, String descricao){
+		OrdemServico ordem = or.findById(ordemServicoId)
+				.orElseThrow(()-> new NegocioException("Ordem de serviço não encontrada."));
+	
+		Comentarios coment = new Comentarios();
+		coment.setDataEnvio(OffsetDateTime.now());
+		coment.setDescricao(descricao);
+		coment.setOrdemServico(ordem);
+		
+		return comentarios.save(coment);
+	}
+	
 }
