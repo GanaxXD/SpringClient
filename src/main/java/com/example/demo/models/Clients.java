@@ -24,7 +24,6 @@ public class Clients {
 	//ser igual ao da coluna no banco (VER EXEMPO TELEFONE, QUE NA CLASSE TEM O ATRIBUTO COM NOME FONE)
 	
 	@NotNull(groups = ValidationGroups.ClientId.class)
-	@NotBlank(groups = ValidationGroups.ClientId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //pega o padrão do banco de dados para a criação dos IDs
 	private Long id;

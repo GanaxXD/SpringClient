@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -46,10 +47,10 @@ public class OrdemServico {
 	private BigDecimal preco;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private LocalDateTime dataAbertura;
+	private OffsetDateTime dataAbertura;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private LocalDateTime dataFinalizacao;
+	private OffsetDateTime dataFinalizacao;
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
@@ -82,19 +83,19 @@ public class OrdemServico {
 		this.descricao = descricao;
 	}
 
-	public LocalDateTime getDataAbertura() {
+	public OffsetDateTime getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(LocalDateTime dataAbertura) {
+	public void setDataAbertura(OffsetDateTime dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public LocalDateTime getDataFinalizacao() {
+	public OffsetDateTime getDataFinalizacao() {
 		return dataFinalizacao;
 	}
 
-	public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
+	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
 	}
 

@@ -26,7 +26,7 @@ public class RepresentationModelOrdemServico {
 	private BigDecimal preco;
 	private LocalDateTime dataAbertura;
 	private LocalDateTime dataFinalizacao;
-	private Estados estadoo;
+	private Estados status;
 	
 	
 	public Long getId() {
@@ -65,11 +65,11 @@ public class RepresentationModelOrdemServico {
 	public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
 	}
-	public Estados getEstadoo() {
-		return estadoo;
+	public Estados getStatus() {
+		return status;
 	}
-	public void setEstadoo(Estados estadoo) {
-		this.estadoo = estadoo;
+	public void setStatus(Estados status) {
+		this.status = status;
 	}
 
 	

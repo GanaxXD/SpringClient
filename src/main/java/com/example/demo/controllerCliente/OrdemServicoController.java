@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.interfaces.OrdemServiceInterface;
 import com.example.demo.models.OrdemServico;
+import com.example.demo.models.OrdemServicoInput;
 import com.example.demo.representationmodelclass.RepresentationModelOrdemServico;
 import com.example.demo.services.OrdemServiceService;
 
@@ -57,7 +58,8 @@ public class OrdemServicoController {
 	
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
-	public OrdemServico criarOrdemServico(@Valid @RequestBody OrdemServico ordem) {
+	public OrdemServico criarOrdemServico(@Valid @RequestBody OrdemServicoInput ordemInput) {
+		OrdemServico ordem = toInputModel(ordemInput);
 		return osService.criar(ordem);
 	}
 
@@ -88,5 +90,9 @@ public class OrdemServicoController {
 		return ordens.stream()
 				.map(ordemServico -> toModel(ordemServico))
 				.collect(Collectors.toList());
+	}
+	
+	public OrdemServico toInputModel(OrdemServicoInput ordem) {
+		return ordemServicoMap.map(ordem, OrdemServico.class);
 	}
 }

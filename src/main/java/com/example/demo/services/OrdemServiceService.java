@@ -35,7 +35,7 @@ public class OrdemServiceService {
 				.orElseThrow(() -> new NegocioException("Cliente informado inexistente."));
 		
 		servico.setCliente(cli);
-		servico.setDataAbertura(LocalDateTime.now());
+		servico.setDataAbertura(OffsetDateTime.now());
 		servico.setStatus(Estados.ABERTO);
 		
 		return or.save(servico);
@@ -50,6 +50,7 @@ public class OrdemServiceService {
 				.orElseThrow(()-> new NegocioException("Ordem de serviço não encontrada."));
 		ordem.setStatus(Estados.FINALIZADO);
 	}
+	
 	
 	public OrdemServico fechaOrdem(OrdemServico ordem) {
 		ordem.setStatus(Estados.FINALIZADO);
