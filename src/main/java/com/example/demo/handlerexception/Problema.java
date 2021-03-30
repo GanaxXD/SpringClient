@@ -1,12 +1,19 @@
 package com.example.demo.handlerexception;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import java.util.Date;
 
+@JsonInclude(Include.NON_NULL)
 public class Problema {
+	private Integer status;
 	private String titulo;
-	private LocalDateTime dataErro;
+	private OffsetDateTime dataErro;
 	
 	public List<Campo> campos;
 	
@@ -35,17 +42,23 @@ public class Problema {
 		}
 		
 	}
-	
+		
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	public String getTitulo() {
 		return titulo;
 	}
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public LocalDateTime getDataErro() {
+	public OffsetDateTime getDataErro() {
 		return dataErro;
 	}
-	public void setDataErro(LocalDateTime dataErro) {
+	public void setDataErro(OffsetDateTime dataErro) {
 		this.dataErro = dataErro;
 	}
 	public List<Campo> getCampos() {

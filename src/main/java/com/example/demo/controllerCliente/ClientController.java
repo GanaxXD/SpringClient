@@ -65,8 +65,9 @@ public class ClientController {
 	
 	@PutMapping("/{clienteId}")
 	public ResponseEntity<Clients> atualizar (@Valid @RequestBody Clients cliente, @PathVariable Long clienteId) {
+
 		if(!clientInterface.existsById(clienteId)) {
-			ResponseEntity.notFound().build();
+			return ResponseEntity.notFound().build();
 		}
 				
 		cliente.setId(clienteId);
@@ -76,7 +77,7 @@ public class ClientController {
 	@DeleteMapping("/{clientId}")
 	public ResponseEntity<Void> deletar (@PathVariable Long clientId){
 		if(!clientInterface.existsById(clientId)) {
-			ResponseEntity.notFound().build();
+			return ResponseEntity.notFound().build();
 		}
 		//clientInterface.deletar(clientInterface.findById(clientId).get());
 		clienteService.deletar(clientId);
