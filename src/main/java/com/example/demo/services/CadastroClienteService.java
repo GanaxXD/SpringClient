@@ -24,7 +24,10 @@ public class CadastroClienteService {
 	public Clients salvar(Clients client) {
 		
 		Clients cli = interf.findByEmail(client.getEmail());
-		if(cli != null && cli.equals(cli)) {
+		/*
+		 * System.out.println(cli.getEmail()); System.out.println(client.getEmail());
+		 */
+		if(cli != null && !cli.equals(client)) {
 			throw new NegocioException("O cliente com o email informado já foi criado!");
 		}
 		

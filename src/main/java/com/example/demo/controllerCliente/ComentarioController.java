@@ -54,7 +54,7 @@ public class ComentarioController {
 		return toCollection(os.getComentarios());
 	}
 	
-	@PutMapping("/ordemservico/{ordemservicoId}/finalizar")
+	@PutMapping("/finalizar")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void finalizar(@PathVariable Long ordemservicoId) {
 		OrdemServico os = Ointerface.findById(ordemservicoId)
@@ -67,7 +67,7 @@ public class ComentarioController {
 		Ointerface.save(os);
 	}
 	
-	@PutMapping("/ordemservico/{ordemservicoId}/cancelar")
+	@PutMapping("/cancelar")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cancelar(@PathVariable Long ordemservicoId) {
 		OrdemServico os = Ointerface.findById(ordemservicoId)
