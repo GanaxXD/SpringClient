@@ -1,8 +1,6 @@
 create table if not exists clients(
-	id int not null auto_increment,
+	id SERIAL not null primary key,
     nome varchar(200) not null,
     telefone varchar(200) not null,
-    email varchar(200) not null,
-    
-    primary key (id)
+    email varchar(200) not null
 );
