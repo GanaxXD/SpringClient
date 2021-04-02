@@ -54,31 +54,6 @@ public class ComentarioController {
 		return toCollection(os.getComentarios());
 	}
 	
-	@PutMapping("/finalizar")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void finalizar(@PathVariable Long ordemservicoId) {
-		OrdemServico os = Ointerface.findById(ordemservicoId)
-				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
-		if(!os.getStatus().equals(Estados.ABERTO)) {
-			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
-		}
-		os.setStatus(Estados.FINALIZADO);
-		os.setDataFinalizacao(OffsetDateTime.now());
-		Ointerface.save(os);
-	}
-	
-	@PutMapping("/cancelar")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void cancelar(@PathVariable Long ordemservicoId) {
-		OrdemServico os = Ointerface.findById(ordemservicoId)
-				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
-		if(!os.getStatus().equals(Estados.ABERTO)) {
-			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
-		}
-		os.setStatus(Estados.CANCELADO);
-		os.setDataFinalizacao(OffsetDateTime.now());
-		Ointerface.save(os);
-	}
 
 	public ComentariosInput toModel(Comentarios coment) {
 		return modelMap.map(coment, ComentariosInput.class);

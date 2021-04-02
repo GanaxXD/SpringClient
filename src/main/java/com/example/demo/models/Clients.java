@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.BatchSize;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.interfaces.ValidationGroups;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;

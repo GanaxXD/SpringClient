@@ -1,5 +1,6 @@
 package com.example.demo.controllerCliente;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.handlerexception.NegocioException;
 import com.example.demo.interfaces.OrdemServiceInterface;
+import com.example.demo.models.Estados;
 import com.example.demo.models.OrdemServico;
 import com.example.demo.models.OrdemServicoInput;
 import com.example.demo.representationmodelclass.RepresentationModelOrdemServico;
@@ -76,6 +79,32 @@ public class OrdemServicoController {
 		}
 		osInterface.deleteById(ordemserviceId);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("/{ordemserviceId}/finalizar")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long ordemserviceId) {
+		OrdemServico os = osInterface.findById(ordemserviceId)
+				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
+		if(!os.getStatus().equals(Estados.ABERTO)) {
+			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
+		}
+		os.setStatus(Estados.FINALIZADO);
+		os.setDataFinalizacao(OffsetDateTime.now());
+		osInterface.save(os);
+	}
+	
+	@PutMapping("/{ordemserviceId}/cancelar")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cancelar(@PathVariable Long ordemserviceId) {
+		OrdemServico os = osInterface.findById(ordemserviceId)
+				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
+		if(!os.getStatus().equals(Estados.ABERTO)) {
+			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
+		}
+		os.setStatus(Estados.CANCELADO);
+		os.setDataFinalizacao(OffsetDateTime.now());
+		osInterface.save(os);
 	}
 	
 	//transforma uma ordem de serviço numa representation model
