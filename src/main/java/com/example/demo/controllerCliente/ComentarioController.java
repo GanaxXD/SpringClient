@@ -28,7 +28,7 @@ import com.example.demo.models.Comentarios;
 import com.example.demo.services.OrdemServiceService;
 
 @RestController
-@RequestMapping("/ordemservico/{ordemservicoId}/comentario")
+@RequestMapping(value="/ordemservico/{ordemservicoId}/comentario", produces = "application/vnd.baeldung.api.v1+json")
 public class ComentarioController {
 
 	@Autowired

@@ -27,9 +27,11 @@ import com.example.demo.models.OrdemServico;
 import com.example.demo.models.OrdemServicoInput;
 import com.example.demo.representationmodelclass.RepresentationModelOrdemServico;
 import com.example.demo.services.OrdemServiceService;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 
 @RestController
-@RequestMapping("/ordemservico")
+@RequestMapping(value="/ordemservico", produces = "application/vnd.baeldung.api.v1+json")
 public class OrdemServicoController {
 	
 	@Autowired

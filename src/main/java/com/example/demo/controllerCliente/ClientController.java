@@ -28,7 +28,7 @@ import com.example.demo.models.Clients;
 import com.example.demo.services.CadastroClienteService;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping(value="/clientes", produces = "application/vnd.baeldung.api.v1+json")
 public class ClientController {
 	
 	@Autowired
