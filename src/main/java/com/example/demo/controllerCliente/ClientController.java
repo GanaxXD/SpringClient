@@ -32,6 +32,7 @@ import com.example.demo.services.CadastroClienteService;
 @RequestMapping(value="/clientes", produces = "application/vnd.baeldung.api.v1+json")
 @CrossOrigin(origins="*") //Habilitando a aplicação para qualquer outra aplicação consumir
 public class ClientController {
+	//teste
 	
 	@Autowired
 	private ClientsInterface clientInterface;
