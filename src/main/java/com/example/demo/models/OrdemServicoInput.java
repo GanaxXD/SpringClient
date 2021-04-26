@@ -18,11 +18,8 @@ import javax.validation.constraints.NotNull;
  */
 public class OrdemServicoInput {
 	
-	@NotBlank
 	private String descricao;
-	@NotNull
 	private BigDecimal preco;
-	@NotNull
 	private Long clienteId;
 	/*
 	 * @Valid private ClientsInputId clienteId;

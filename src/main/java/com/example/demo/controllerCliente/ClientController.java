@@ -74,7 +74,7 @@ public class ClientController {
 		}
 				
 		cliente.setId(clienteId);
-		return ResponseEntity.ok(clientInterface.save(cliente));
+		return ResponseEntity.ok(clienteService.salvar(cliente));
 	}
 	
 	@DeleteMapping("/{clientId}")

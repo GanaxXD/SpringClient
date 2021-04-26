@@ -27,8 +27,14 @@ public class CadastroClienteService {
 		/*
 		 * System.out.println(cli.getEmail()); System.out.println(client.getEmail());
 		 */
+		System.out.print(client.getEmail()+ "  "+ client.getFone()+ "  "+ client.getNome());
 		if(cli != null && !cli.equals(client)) {
 			throw new NegocioException("O cliente com o email informado já foi criado!");
+		}
+		if(client.getEmail().trim().equals("")|| client.getNome().trim().equals("") 
+				|| client.getFone().trim().equals("") || client.equals(null)) {
+			System.out.println("CHEGUEI AQUI");
+			throw new NegocioException("Todos os dados solicitados são obrigatórios");
 		}
 		
 		 return interf.save(client);

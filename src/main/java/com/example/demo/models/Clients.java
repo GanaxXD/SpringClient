@@ -31,16 +31,19 @@ public class Clients {
 	
 	@Size(max=200) 
 	@NotBlank(groups = Default.class)
+	@NotNull(groups = Default.class)
 	private String nome;
 	
 	@Size(max=200) 
 	@NotBlank(groups = Default.class)
 	@Email
+	@NotNull(groups = Default.class)
 	private String email;
 	
 	@Size(max=200)
 	@NotBlank(groups = Default.class)
 	@Column(name="telefone")
+	@NotNull(groups = Default.class)
 	private String fone;
 	
 	public Long getId() {

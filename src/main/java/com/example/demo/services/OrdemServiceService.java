@@ -36,13 +36,23 @@ public class OrdemServiceService {
 		
 		servico.setCliente(cli);
 		servico.setDataAbertura(OffsetDateTime.now());
+		System.out.print(OffsetDateTime.now());
 		servico.setStatus(Estados.ABERTO);
+		
+		if(servico.getPreco() == null  
+				|| servico.getPreco().toString().trim().equals("")
+				|| servico.getDescricao().trim().equals("") || servico == null
+				|| servico.getCliente().getId().toString().equals("")) {
+			throw new NegocioException("Todas as informações solicitadas são obrigatórias!");
+		}
 		
 		return or.save(servico);
 	}
 	
 	public void excluir(Long ordemserviceId) {
-		or.deleteById(ordemserviceId);
+		if(or.findById(ordemserviceId) == null) {
+			throw new NegocioException("Ordem de serviço não encontrada.");
+		}
 	}
 	
 	public void fecharOrdemById(Long ondermServicoId) {
@@ -53,11 +63,17 @@ public class OrdemServiceService {
 	
 	
 	public OrdemServico fechaOrdem(OrdemServico ordem) {
+		if(ordem == null || ordem.getId()==null || ordem.getId().toString().trim().equals("")) {
+			throw new NegocioException("Ordem de serviço não encontrada!");
+		}
 		ordem.setStatus(Estados.FINALIZADO);
 		return ordem;
 	}
 	
 	public OrdemServico cancelaOrdem(OrdemServico ordem) {
+		if(ordem == null || ordem.getId()==null || ordem.getId().toString().trim().equals("")) {
+			throw new NegocioException("Ordem de serviço não encontrada!");
+		}
 		ordem.setStatus(Estados.CANCELADO);
 		return ordem;
 	}
@@ -66,6 +82,10 @@ public class OrdemServiceService {
 		OrdemServico ordem = or.findById(ordemServicoId)
 				.orElseThrow(()-> new NegocioException("Ordem de serviço não encontrada."));
 	
+		if(descricao.trim().equals(" ") || descricao == null) {
+			throw new NegocioException("Todos os campos devem ser preenchidos!");
+		}
+		
 		Comentarios coment = new Comentarios();
 		coment.setDataEnvio(OffsetDateTime.now());
 		coment.setDescricao(descricao);

@@ -36,14 +36,13 @@ public class OrdemServico {
 	
 	@Valid //encadeando validação do cliente com os campos da classe
 	@ConvertGroup(from = Default.class,  to =  ValidationGroups.ClientId.class) //convertendo a validação do Clients para que ele valide apenas as propriedades da classe clients que possuam a anotação ValidationGroups.ClientId, deixando a Default de lado 
-	@NotNull
 	@ManyToOne
 	private Clients cliente;
 	
 	@NotBlank
+	@NotNull
 	private String descricao;
 	
-	@NotNull
 	private BigDecimal preco;
 	
 	@JsonProperty(access = Access.READ_ONLY)
