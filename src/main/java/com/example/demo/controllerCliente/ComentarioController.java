@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.ComentariosInput;
 import com.example.demo.models.Estados;
 import com.example.demo.models.OrdemServico;
-import com.example.demo.representationmodelclass.RepresentationModelComentario;
 import com.example.demo.handlerexception.NegocioException;
 import com.example.demo.interfaces.OrdemServiceInterface;
 import com.example.demo.models.Comentarios;
@@ -42,18 +41,43 @@ public class ComentarioController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ComentariosInput criarComentario(@PathVariable Long ordemservicoId, @Valid @RequestBody ComentariosInput comentario) {
-		Comentarios coment = ordemServicoService.adicionarcomentario(ordemservicoId, comentario.getDescricao());
+	public ComentariosInput criarComentario(@PathVariable Long ordemServicoId, @Valid @RequestBody ComentariosInput comentario) {
+		Comentarios coment = ordemServicoService.adicionarcomentario(ordemServicoId, comentario.getDescricao());
 		return toModel(coment);
 	}
 	
 	@GetMapping
-	public List<ComentariosInput> listarComentarios (@PathVariable Long ordemservicoId){
-		OrdemServico os = Ointerface.findById(ordemservicoId)
+	public List<ComentariosInput> listarComentarios (@PathVariable Long ordemServicoId){
+		OrdemServico os = Ointerface.findById(ordemServicoId)
 				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
 		return toCollection(os.getComentarios());
 	}
 	
+	@PutMapping("/ordemservico/{ordemServicoId}/finalizar")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long ordemServicoId) {
+		OrdemServico os = Ointerface.findById(ordemServicoId)
+				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
+		if(!os.getStatus().equals(Estados.ABERTO)) {
+			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
+		}
+		os.setStatus(Estados.FINALIZADO);
+		os.setDataFinalizacao(OffsetDateTime.now());
+		Ointerface.save(os);
+	}
+	
+	@PutMapping("/ordemservico/{ordemServicoId}/cancelar")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cancelar(@PathVariable Long ordemServicoId) {
+		OrdemServico os = Ointerface.findById(ordemServicoId)
+				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
+		if(!os.getStatus().equals(Estados.ABERTO)) {
+			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
+		}
+		os.setStatus(Estados.CANCELADO);
+		os.setDataFinalizacao(OffsetDateTime.now());
+		Ointerface.save(os);
+	}
 
 	public ComentariosInput toModel(Comentarios coment) {
 		return modelMap.map(coment, ComentariosInput.class);
