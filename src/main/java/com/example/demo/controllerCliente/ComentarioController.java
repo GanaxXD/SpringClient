@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import com.example.demo.services.OrdemServiceService;
 
 @RestController
 @RequestMapping(value="/ordemservico/{ordemservicoId}/comentario", produces = "application/vnd.baeldung.api.v1+json")
+@CrossOrigin(origins="*") //Habilitando a aplicação para qualquer outra aplicação consumir
 public class ComentarioController {
 
 	@Autowired
