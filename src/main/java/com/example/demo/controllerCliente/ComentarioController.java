@@ -44,6 +44,9 @@ public class ComentarioController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ComentariosInput criarComentario(@PathVariable Long ordemServicoId, @Valid @RequestBody ComentariosInput comentario) {
+		if(comentario.getDescricao().trim().equals("") || comentario == null) {
+			throw new NegocioException("O campo 'Comentário' é obrigatório.");
+		}
 		Comentarios coment = ordemServicoService.adicionarcomentario(ordemServicoId, comentario.getDescricao());
 		return toModel(coment);
 	}

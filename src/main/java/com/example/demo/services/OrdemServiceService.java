@@ -30,7 +30,9 @@ public class OrdemServiceService {
 	ComentariosInterface comentarios;
 	
 	public OrdemServico criar(OrdemServico servico){
-		
+		if(servico.getCliente()==null) {
+			throw new NegocioException("Todos os campos solicitados são obrigatórios!");
+		}
 		Clients cli = cliente.findById(servico.getCliente().getId())
 				.orElseThrow(() -> new NegocioException("Cliente informado inexistente."));
 		
@@ -41,7 +43,7 @@ public class OrdemServiceService {
 		
 		if(servico.getPreco() == null  
 				|| servico.getPreco().toString().trim().equals("")
-				|| servico.getDescricao().trim().equals("") || servico == null
+				|| servico.getDescricao().trim().equals("")
 				|| servico.getCliente().getId().toString().equals("")) {
 			throw new NegocioException("Todas as informações solicitadas são obrigatórias!");
 		}
