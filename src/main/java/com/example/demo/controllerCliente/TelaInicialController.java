@@ -1,15 +1,126 @@
 package com.example.demo.controllerCliente;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping(value="/", method = RequestMethod.GET)
+@RequestMapping(value="/", produces="text/html")
 public class TelaInicialController {
-	
+	@GetMapping("index")
 	public ModelAndView index() {
 		return new ModelAndView("index.html");
+	}
+	
+	@GetMapping("/error")
+	public String getError() {
+		return ("<h1>Ah Droga!</h1> "
+				+ "<p>Você está vendo essa tela porque eu não "
+				+ "consegui localizar a página principal. Devo ter perdido o mapeamento da index... "
+				+ "Tente acessar um dos <i>endpoints</i> disponíveis da API:</p> "
+				+ " <ul>"
+				+ "		<li>*/clientes</li>"
+				+ "		<li>*/ordemservico</li>"
+				+ "</ul>");
+	}
+	
+	@GetMapping
+	public String getIndex() {
+		return("<!DOCTYPE html>\r\n"
+				+ "<html xmlns:th=\"http://www.thymeleaf.org\" \r\n"
+				+ "	  xmlns:layout=\"http://www.ultraq.net.nz/web/thymeleaf/layout\">\r\n"
+				+ "<head>\r\n"
+				+ "	<script src=\"commom-script.js\"></script>\r\n"
+				+ "	<meta charset=\"UTF-8\" http-equiv=\"Content-Type\">\r\n"
+				+ "	<title>API Para Cadastro de Clientes e Ordens de Serviços</title>\r\n"
+				+ "</head>\r\n"
+				+ "<body style=\"padding-left: 90px; padding-right: 90px; padding-top: 10px; font-family: helvetica\">\r\n"
+				+ "	<h1 align=\"center\">API Para Cadastro de Clientes e Ordens de Serviços</h1>\r\n"
+				+ "	<br/>\r\n"
+				+ "	<p>\r\n"
+				+ "		Esta página inicial foi criada para indicar ao usuário os principais <i>endpoints</i>\r\n"
+				+ "		desta API. Caso queira testar o a API com mais recursos, sem precisar configurar "
+				+ "		o ambiente no seu computador local e sem precisar baixar o repositório do <i>github</i>, "
+				+ "		acesse o <i>front</i> criado em <b>REACT</b> "
+				+ "		para disponível em: <a href= \"https://github.com/GanaxXD/reactFront\">Em desenvolvimento...</a>\r\n"
+				+ "	</p>\r\n"
+				+ "	<div>\r\n"
+				+ "		<b>A API funciona seguindo o seguinte relacionamento entre as entidades:</b>\r\n"
+				+ "		<ul>\r\n"
+				+ "			<li>Um cliente pode possuir várias ordens de serviço.</li> \r\n"
+				+ "			<li>Uma ordem de serviço precisa necessariamente estar vinculada a um cliente.</li> \r\n"
+				+ "			<li>Uma ordem de serviço pode estar com os seguintes <i>status</i>: ABERTA, CANCELADA ou FINALIZADO</li> \r\n"
+				+ "			<li>Uma ordem de serviço pode ter 0 ou mais comentários.</li> \r\n"
+				+ "		</ul>\r\n"
+				+ "		Em caso de dúvidas, acesse a documentação da API no ink abaixo:\r\n"
+				+ "	</div>\r\n"
+				+ "	<div align=\"center\" style=\"padding-bottom: 10px; padding-bottom: 10px\">\r\n"
+				+ "		<!-- <img height=\"32\" width=\"32\" alt=\"GitHub API Docs\" src=\"../src/main/resources/image/GitHub-32px.png\" style=\"padding-right: 3px\"> -->\r\n"
+				+ "		<a href=\"https://github.com/GanaxXD/SpringClient#readme\" style=\"color: blue;\">Documentação da API</a>\r\n"
+				+ "	</div>\r\n"
+				+ "	<br/>\r\n"
+				+ "	<h3>EndPoints:</h3>\r\n"
+				+ "	<h4 style=\"font-style: italic;\">Para a entidade \"Clientes\"</h4>\r\n"
+				+ "	<ul>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/clientes\"</b> (usando o método GET) \r\n"
+				+ "				para listar todos os clientes cadastrados.\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/clientes/{id_cliente}\" </b>\r\n"
+				+ "				(usando o método GET) para trazer o cliente cadastrado com o id(número inteiro) informado.\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/clientes\" </b>\r\n"
+				+ "			(usando o método POST) para criar um cliente com as informações solicitadas,\r\n"
+				+ "			sendo elas: Nome, E-Mail e Telefone (todos do tipo String).\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/clientes/{id_cliente}\" </b>\r\n"
+				+ "			(usando o método POST) para atualizar os dados de um cliente com as informações passadas. \r\n"
+				+ "			Lembrando que as informações possíveis de serem passadas ao servidor são: Nome, E-Mail e Telefone (todos do tipo String).\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/clientes/{id_cliente}\" </b>\r\n"
+				+ "				(usando o método DELETE) para deletar o cliente cadastrado com o id(número inteiro) informado.\r\n"
+				+ "		</li>\r\n"
+				+ "	</ul>\r\n"
+				+ "	\r\n"
+				+ "	\r\n"
+				+ "	<br/>\r\n"
+				+ "	<h4 style=\"font-style: italic;\">Para a entidade \"Ordem de Serviço\"</h4>\r\n"
+				+ "	<ul>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico\" </b>(usando o método GET) \r\n"
+				+ "				para listar todas as ordens de serviço cadastradas.\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico/{id_ordemservico}\" </b>\r\n"
+				+ "				(usando o método GET) para trazer a ordem de serviço cadastrada com o id(número inteiro) informado.\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico\" </b>\r\n"
+				+ "			(usando o método POST) para criar uma ordem se derviço com as informações solicitadas,\r\n"
+				+ "			sendo elas: Descrição (String), Preço (double) e Id do CLiente (número inteiro).\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico/{id_ordemservico}\" </b>\r\n"
+				+ "			(usando o método PUT) para atualizar os dados de uma ordem de serviço. \r\n"
+				+ "			Lembrando que as informações possíveis de serem passadas ao servidor são: escrição (String), Preço (double) \r\n"
+				+ "			e Id do CLiente (número inteiro).\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico/{id_ordemservico}\" </b>\r\n"
+				+ "				(usando o método DELETE) para deletar a ordem de serviço cadastrada com o id(número inteiro) informado.\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico/{id_ordemservico}/cancelar\" </b>\r\n"
+				+ "				(usando o método PUT) para alterar o status da ordem de serviço \r\n"
+				+ "				cadastrada com o id(número inteiro) informado para CANCELADO.\r\n"
+				+ "		</li>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico/{id_ordemservico}/finalizar\" </b>\r\n"
+				+ "				(usando o método PUT) para alterar o status da ordem de serviço \r\n"
+				+ "				cadastrada com o id(número inteiro) informado para FINALIZADO.\r\n"
+				+ "		</li>\r\n"
+				+ "	</ul>\r\n"
+				+ "	\r\n"
+				+ "	<br/>\r\n"
+				+ "	<h4 style=\"font-style: italic;\">Para a entidade \"Comentário\"</h4>\r\n"
+				+ "	<ul>\r\n"
+				+ "		<li><b>\"https://api-client-serviceorder.herokuapp.com/ordemservico/{id_ordemservico}/comentario\" </b>(usando o método GET) \r\n"
+				+ "				para listar todos os comentários de uma ordens de serviço cadastrada.\r\n"
+				+ "		</li>\r\n"
+				+ "	</ul>\r\n"
+				+ "</body>\r\n"
+				+ "</html>");
 	}
 }
