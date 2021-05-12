@@ -41,6 +41,7 @@ public class ComentarioController {
 	@Autowired
 	ModelMapper modelMap;
 	
+	@CrossOrigin
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ComentariosInput criarComentario(@PathVariable Long ordemservicoId, @Valid @RequestBody ComentariosInput comentario) {
@@ -56,13 +57,15 @@ public class ComentarioController {
 		return toModel(coment);
 	}
 	
+	@CrossOrigin
 	@GetMapping
-	public List<ComentariosInput> listarComentarios (@PathVariable Long ordemServicoId){
-		OrdemServico os = Ointerface.findById(ordemServicoId)
+	public List<ComentariosInput> listarComentarios (@PathVariable Long ordemservicoId){
+		OrdemServico os = Ointerface.findById(ordemservicoId)
 				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
 		return toCollection(os.getComentarios());
 	}
 	
+	@CrossOrigin
 	@PutMapping("/ordemservico/{ordemservicoId}/finalizar")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void finalizar(@PathVariable Long ordemservicoId) {
@@ -76,6 +79,7 @@ public class ComentarioController {
 		Ointerface.save(os);
 	}
 	
+	@CrossOrigin
 	@PutMapping("/ordemservico/{ordemservicoId}/cancelar")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cancelar(@PathVariable Long ordemservicoId) {
