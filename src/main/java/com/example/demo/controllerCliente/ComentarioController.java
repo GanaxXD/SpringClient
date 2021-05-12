@@ -43,11 +43,16 @@ public class ComentarioController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ComentariosInput criarComentario(@PathVariable Long ordemServicoId, @Valid @RequestBody ComentariosInput comentario) {
+	public ComentariosInput criarComentario(@PathVariable Long ordemservicoId, @Valid @RequestBody ComentariosInput comentario) {
+		
 		if(comentario.getDescricao().trim().equals("") || comentario == null) {
 			throw new NegocioException("O campo 'Comentário' é obrigatório.");
 		}
-		Comentarios coment = ordemServicoService.adicionarcomentario(ordemServicoId, comentario.getDescricao());
+		if(Ointerface.findById(ordemservicoId) == null || ordemservicoId.equals(null)) {
+			throw new NegocioException("O id da ordem de serviço não existe.");
+		}
+		
+		Comentarios coment = ordemServicoService.adicionarcomentario(ordemservicoId, comentario.getDescricao());
 		return toModel(coment);
 	}
 	
@@ -58,10 +63,10 @@ public class ComentarioController {
 		return toCollection(os.getComentarios());
 	}
 	
-	@PutMapping("/ordemservico/{ordemServicoId}/finalizar")
+	@PutMapping("/ordemservico/{ordemservicoId}/finalizar")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void finalizar(@PathVariable Long ordemServicoId) {
-		OrdemServico os = Ointerface.findById(ordemServicoId)
+	public void finalizar(@PathVariable Long ordemservicoId) {
+		OrdemServico os = Ointerface.findById(ordemservicoId)
 				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
 		if(!os.getStatus().equals(Estados.ABERTO)) {
 			throw new NegocioException("A ordem está ou cancelada ou finaizada.");
@@ -71,10 +76,10 @@ public class ComentarioController {
 		Ointerface.save(os);
 	}
 	
-	@PutMapping("/ordemservico/{ordemServicoId}/cancelar")
+	@PutMapping("/ordemservico/{ordemservicoId}/cancelar")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void cancelar(@PathVariable Long ordemServicoId) {
-		OrdemServico os = Ointerface.findById(ordemServicoId)
+	public void cancelar(@PathVariable Long ordemservicoId) {
+		OrdemServico os = Ointerface.findById(ordemservicoId)
 				.orElseThrow(() -> new NegocioException("Ordem de serviço não encontrada!"));
 		if(!os.getStatus().equals(Estados.ABERTO)) {
 			throw new NegocioException("A ordem está ou cancelada ou finaizada.");

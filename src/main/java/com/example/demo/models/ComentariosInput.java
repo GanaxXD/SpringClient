@@ -3,7 +3,7 @@ package com.example.demo.models;
 import javax.validation.constraints.NotBlank;
 
 public class ComentariosInput {
-	@NotBlank
+	
 	private String descricao;
 
 	public String getDescricao() {
