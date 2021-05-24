@@ -45,10 +45,10 @@ public class OrdemServico {
 	
 	private BigDecimal preco;
 	
-	@JsonProperty(access = Access.READ_ONLY)
+//	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataAbertura;
 	
-	@JsonProperty(access = Access.READ_ONLY)
+//	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizacao;
 	
 	@JsonProperty(access = Access.READ_ONLY)

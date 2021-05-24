@@ -1,11 +1,9 @@
 package com.example.demo.services;
 
-import java.time.LocalDateTime;
+
 import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.handlerexception.NegocioException;
@@ -30,6 +28,7 @@ public class OrdemServiceService {
 	ComentariosInterface comentarios;
 	
 	public OrdemServico criar(OrdemServico servico){
+		System.out.print(OffsetDateTime.now());
 		if(servico.getCliente()==null) {
 			throw new NegocioException("Todos os campos solicitados são obrigatórios!");
 		}
@@ -38,7 +37,6 @@ public class OrdemServiceService {
 		
 		servico.setCliente(cli);
 		servico.setDataAbertura(OffsetDateTime.now());
-		System.out.print(OffsetDateTime.now());
 		servico.setStatus(Estados.ABERTO);
 		
 		if(servico.getPreco() == null  
