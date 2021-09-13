@@ -69,5 +69,5 @@ Por exemplo, para listar os clientes, acesse ```https://api-client-serviceorder.
 
 ### Testando em uma máquina local
 
-Para utilização na máquina local, sugiro a utilização do *postman* ou do *insomnia* para simular um *client-side*. Depois de instalado, baixe este repositório na sua máquina e rode o projeto Spring Boot. Depois de rodar o projeto, o mesmo estará simulando um *server-side* na sua máquina no endereço *http://localhost:8080*.
+Para utilização na máquina local, sugiro a utilização do *Postman* ou do *Insomnia* para simular um *client-side*. Depois de instalado, baixe este repositório na sua máquina e rode o projeto Spring Boot. Depois de rodar o projeto, o mesmo estará simulando um *server-side* na sua máquina no endereço *http://localhost:8080*.
 Abra o *postman* ou o *insomnia* e configure as rotas de utilização conforme o indicado na seção *Endpoints* desta página.
