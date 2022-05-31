@@ -71,3 +71,10 @@ Por exemplo, para listar os clientes, acesse ```https://api-client-serviceorder.
 
 Para utilização na máquina local, sugiro a utilização do *Postman* ou do *Insomnia* para simular um *client-side*. Depois de instalado, baixe este repositório na sua máquina e rode o projeto Spring Boot. Depois de rodar o projeto, o mesmo estará simulando um *server-side* na sua máquina no endereço *http://localhost:8080*.
 Abra o *postman* ou o *insomnia* e configure as rotas de utilização conforme o indicado na seção *Endpoints* desta página.
+
+### Retornos 
+Por padrão, neste projeto, o retorno obtido é um objeto JSON, contendo os dados advindos da base de dados.  
+A escolha se deu pela ampla adesão ao padrão JSON pelo mercado, pela leveza e facilidade no recebimento e envio de dados. 
+Dessa forma, espera-se maior performance, considerando que o heroku costuma 
+demorar um pouco para responder as primeiras requisição, uma vez que os serviços envolvidos rodam num servidor localizado nos EUA, e, além disso,
+ a propria plataforma tem suas regras de segurança que consomem mais tempo para validar as requisições e suas respostas.
